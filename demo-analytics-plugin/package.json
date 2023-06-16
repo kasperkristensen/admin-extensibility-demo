@@ -11,8 +11,8 @@
   },
   "packageManager": "yarn@3.5.0",
   "devDependencies": {
-    "@medusajs/admin": "6.0.1-snapshot-20230616075251",
-    "@medusajs/medusa": "1.12.1-snapshot-20230616075251",
+    "@medusajs/admin": "6.0.1-snapshot-20230616112308",
+    "@medusajs/medusa": "1.12.1-snapshot-20230616112308",
     "@types/react": "^18.2.12",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
