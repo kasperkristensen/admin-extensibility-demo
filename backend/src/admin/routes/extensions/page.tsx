@@ -1,6 +1,6 @@
 import { RouteConfig } from "@medusajs/admin";
 import CodeSnippets from "../../components/code-snippets";
-import { InjectionZoneTable } from "../../components/table";
+import InjectionZoneTable from "../../components/table";
 
 const ExtensionsPage = () => {
   return (
@@ -65,46 +65,6 @@ const ExtensionsPage = () => {
               zone.
             </p>
             <div className="my-4">
-              {/* <Table>
-                <TableHead>
-                  <TableHeader>Zone</TableHeader>
-                  <TableHeader>Type</TableHeader>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableData>
-                      <code>order.details.*</code>
-                    </TableData>
-                    <TableData>
-                      <code>OrderDetailsWidgetProps</code>
-                    </TableData>
-                  </TableRow>
-                  <TableRow>
-                    <TableData>
-                      <code>order.list.*</code>
-                    </TableData>
-                    <TableData>
-                      <code>WidgetProps</code>
-                    </TableData>
-                  </TableRow>
-                  <TableRow>
-                    <TableData>
-                      <code>product.details.*</code>
-                    </TableData>
-                    <TableData>
-                      <code>ProductDetailsWidgetProps</code>
-                    </TableData>
-                  </TableRow>
-                  <TableRow>
-                    <TableData>
-                      <code>product.list.*</code>
-                    </TableData>
-                    <TableData>
-                      <code>WidgetProps</code>
-                    </TableData>
-                  </TableRow>
-                </TableBody>
-              </Table> */}
               <InjectionZoneTable />
             </div>
           </div>

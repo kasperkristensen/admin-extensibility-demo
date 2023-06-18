@@ -1,7 +1,10 @@
-import { useAdminProduct } from "medusa-react";
-import React from "react";
+import { Product } from "@medusajs/medusa";
+import { useAdminProduct, useAdminProducts } from "medusa-react";
+import React, { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
+  Bar,
+  BarChart,
   CartesianGrid,
   Line,
   LineChart,
@@ -9,6 +12,7 @@ import {
   Tooltip,
   XAxis,
 } from "recharts";
+import Button from "../../../../shared/button";
 import ArrowLeftIcon from "../../../../shared/icons/arrow-left-icon";
 
 const data = [
@@ -63,6 +67,14 @@ const data = [
   },
 ];
 
+const regionData = [
+  {
+    name: "Sales per Region",
+    Europe: 72,
+    "North America": 51,
+  },
+];
+
 const Container = ({ children, className }: React.ComponentProps<"div">) => {
   return (
     <div
@@ -98,10 +110,35 @@ const Card = ({
   );
 };
 
+const ProductEntry = ({ product }: { product: Product }) => {
+  return (
+    <div className="flex items-center justify-between w-full py-2 border-t border-gray-200 last-of-type:border-b">
+      <div className="flex items-center gap-x-3">
+        <img
+          src={product.thumbnail}
+          className="h-10 w-10 rounded-lg object-cover"
+        />
+        <p className="inter-base-regular">{product.title}</p>
+      </div>
+      <Button variant="secondary" size="small">
+        View
+      </Button>
+    </div>
+  );
+};
+
 const ProductAnalyticsPage = () => {
   const { id } = useParams();
 
   const { product, isLoading } = useAdminProduct(id);
+
+  const { products } = useAdminProducts();
+
+  const bundledWith = useMemo(() => {
+    return products?.filter((p) => {
+      return p.id !== product?.id;
+    });
+  }, [products, product]);
 
   return (
     <div>
@@ -189,18 +226,50 @@ const ProductAnalyticsPage = () => {
         <div className="grid grid-cols-2 gap-xsmall">
           <Container>
             <div>
-              <h1 className="font-semibold text-xl">Sales per Region</h1>
-              <div></div>
+              <div className="mb-2">
+                <h1 className="font-semibold text-xl mb-1">Sales by Region</h1>
+                <p className="inter-small-regular text-gray-700">
+                  This shows the breakdown of sales by region.
+                </p>
+              </div>
+              <div className="w-full h-[343px]">
+                <ResponsiveContainer>
+                  <BarChart width={500} height={300} data={regionData}>
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      opacity={0.5}
+                      horizontal={false}
+                    />
+                    <XAxis dataKey="name" />
+                    <Tooltip />
+                    <Bar dataKey="Europe" fill="#8B5CF6" />
+                    <Bar dataKey="North America" fill="#60A5FA" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </Container>
           <Container>
             <div>
-              <h1 className="font-semibold text-xl">Popularly Bundled Items</h1>
-              <div></div>
+              <div className="mb-2">
+                <h1 className="font-semibold text-xl mb-1">
+                  Popularly Bundled Items
+                </h1>
+                <p className="inter-small-regular text-gray-700">
+                  These are the items that are most commonly bundled with this
+                  product.
+                </p>
+              </div>
+              <div className="grid grid-cols-1">
+                {bundledWith?.map((product) => {
+                  return <ProductEntry product={product as Product} />;
+                })}
+              </div>
             </div>
           </Container>
         </div>
       </div>
+      <div className="w-full h-8" />
     </div>
   );
 };

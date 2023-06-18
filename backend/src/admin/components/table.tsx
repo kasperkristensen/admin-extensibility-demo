@@ -156,12 +156,4 @@ const InjectionZoneTable = () => {
   );
 };
 
-export {
-  InjectionZoneTable,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableHeader,
-  TableData,
-};
+export default InjectionZoneTable;
