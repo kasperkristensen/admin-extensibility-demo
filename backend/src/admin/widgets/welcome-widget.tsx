@@ -34,7 +34,7 @@ const WelcomeWidget = () => {
       </div>
       <div>
         <Link to={"/a/extensions"}>
-          <button className="btn btn-small btn-secondary">Learn more</button>
+          <button className="btn btn-small btn-secondary">Learn more!!!</button>
         </Link>
       </div>
     </div>

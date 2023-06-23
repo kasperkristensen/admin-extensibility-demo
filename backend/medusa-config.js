@@ -33,9 +33,21 @@ const DATABASE_URL =
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
+// Stripe keys
+const STRIPE_API_KEY = process.env.STRIPE_API_KEY || "";
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
+
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
+  {
+    resolve: "medusa-payment-stripe",
+    options: {
+      api_key: STRIPE_API_KEY,
+      webhook_secret: STRIPE_WEBHOOK_SECRET,
+      enableUI: true,
+    },
+  },
   {
     resolve: `@medusajs/file-local`,
     options: {
@@ -47,14 +59,17 @@ const plugins = [
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
       autoRebuild: true,
+      develop: {
+        open: false,
+      },
     },
   },
-  {
-    resolve: "demo-analytics-plugin",
-    options: {
-      enableUI: true,
-    },
-  },
+  // {
+  //   resolve: "demo-analytics-plugin",
+  //   options: {
+  //     enableUI: true,
+  //   },
+  // },
 ];
 
 const modules = {
